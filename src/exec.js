@@ -1,9 +1,10 @@
 const cp = require('child_process');
 const _ = require('lodash');
+const log = require('npmlog')
 
 function execSync(command, silent = false) {
   const normalized = normalizeSpace(command);
-  if (!silent) console.log(normalized);
+  if (!silent) log.info("",normalized);
   const io = silent ? 'ignore' : 'inherit';
   cp.execSync(normalized, { stdio: [io, io, io] });
 }
@@ -22,7 +23,7 @@ function execSyncRead(command, silent = false) {
     return '';
   }
   if (!silent) {
-    console.log(normalized);
+    log.info("",normalized);
   }
   return _.trim(String(cp.execSync(normalized, { stdio: ['pipe', 'pipe', 'pipe'] })));
 }
@@ -36,7 +37,7 @@ function execAsyncRead(command, silent = false) {
 function execAsync(command, silent = false) {
   const normalized = normalizeSpace(command);
   if (!silent) {
-    console.log(normalized);
+    log.info("",normalized);
   }
   return new Promise((resolve, reject) => {
     const child = cp.exec(normalized, { maxBuffer: 1024 * 1024 * 10 }, (err, stdout, stderr) => {

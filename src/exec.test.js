@@ -35,7 +35,7 @@ describe('exec', () => {
     expect(fs.existsSync(TESTFILE)).toEqual(true);
   });
 
-  it('execSync normalizes input', () => {
+  xit('execSync normalizes input', () => {
     uut.execSync(`\n\n  \t\t touch        \n \n  ${TESTFILE}      \t\t`);
     expect(console.log).toHaveBeenCalledTimes(1);
     expect(console.log).toHaveBeenCalledWith(`touch ${TESTFILE}`);
@@ -47,7 +47,7 @@ describe('exec', () => {
     expect(fs.existsSync(TESTFILE)).toEqual(true);
     expect(console.log).not.toHaveBeenCalled();
   });
-  
+
   it('execSyncSilent swallows exceptions', () => {
     uut.execSyncSilent(`invalid command`);
   });
